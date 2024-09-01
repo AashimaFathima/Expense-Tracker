@@ -1,0 +1,110 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />   
+    <style>
+        *{
+    background-color:rgb(224, 190, 190);
+}
+#form {
+    border: 2px solid black;
+    color: black;
+    width: 30vw;
+    height: 35vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto; /* This will center the form within its parent container */
+
+}
+form input, form select, form button {
+    padding: 10px;
+    border: 1px solid #000000;
+}
+
+form button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #0f3116;
+}
+#add-expense{
+    display:none;
+    margin:20px;
+}
+
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    
+    <!---NAVIGATION BAR   FORM,VISUAL, CALENDER, TRANSACTION TIME ALSO INCLUDED IN THE TABLE-->
+    <h1 align="center">Expense Tracker</h1>
+    <div id="form">
+
+    <form id="expense-form">
+        <label for="income">Total Income:</label>
+        <input type="number" id="income"> <!---CONST-->
+        <br><br>
+        <label for="income">Total Expenses:</label>
+        <input type="number" id="expense">
+        <br><br>
+
+        <label for="income">Remaining Balance:</label>
+        <input type="number" id="balance">
+        <br><br>
+        
+        <input type="button" name="answer" onclick="showDiv('addExbutton')" value="Add Expense"><br><br>
+
+        <div id="addExbutton" style="display:none; width: 300px; padding: 15px; border: 1px solid #000000;">
+            <form id="add-expense" action="/index.html" method="get">
+                <input type="text" placeholder="Expense Name" required id="ename" style="display: block; margin-bottom: 10px;">
+                <input type="number" placeholder="Amount" required id="eamount" style="display: block; margin-bottom: 10px;">
+                <select id="expense-category" required style="display: block; margin-bottom: 10px;">
+                    <option value="" disabled selected>Select Category</option>
+                    <option value="Food">Food</option>
+                    <option value="Rent">Rent</option>
+                    <option value="Groceries">Groceries</option>
+                    <option value="Transport">Transport</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Other">Other</option>
+                </select>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        
+
+    </form>
+    </div>
+    
+    <div id="table">
+        Transaction table
+        <table border="1">
+           <thead>
+            <tr>
+                <th>Date</th>
+                <th>Expense Name</th>
+                <th>Category</th>
+                <th>Amount</th>
+            </tr>
+        </thead> 
+        
+        </table>
+    </div>
+
+    <script>
+        function showDiv(addExbutton){
+        document.getElementById(addExbutton).style.display = 'block';
+        }
+    
+    </script>
+</body>
+</html>
