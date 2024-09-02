@@ -5,41 +5,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/style.css" />   
     <style>
         *{
-    background-color:rgb(224, 190, 190);
-}
-#form {
-    border: 2px solid black;
-    color: black;
-    width: 30vw;
-    height: 35vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto; /* This will center the form within its parent container */
+            background-color:rgb(224, 190, 190);
+        }
+        #form {
+            border: 2px solid black;
+            color: black;
+            width: 30vw;
+            height: 35vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: auto; /* This will center the form within its parent container */
 
-}
-form input, form select, form button {
-    padding: 10px;
-    border: 1px solid #000000;
-}
+        }
+        form input, form select, form button {
+            padding: 10px;
+            border: 1px solid #000000;
+        }
 
-form button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
+        form button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
 
-form button:hover {
-    background-color: #0f3116;
-}
-#add-expense{
-    display:none;
-    margin:20px;
-}
+        form button:hover {
+            background-color: #0f3116;
+        }
+        #add-expense{
+            display:none;
+            margin:20px;
+        }
+table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
 
     </style>
     <title>Document</title>
@@ -49,26 +62,26 @@ form button:hover {
     <!---NAVIGATION BAR   FORM,VISUAL, CALENDER, TRANSACTION TIME ALSO INCLUDED IN THE TABLE-->
     <h1 align="center">Expense Tracker</h1>
     <div id="form">
-
-    <form id="expense-form">
-        <label for="income">Total Income:</label>
-        <input type="number" id="income"> <!---CONST-->
-        <br><br>
-        <label for="income">Total Expenses:</label>
-        <input type="number" id="expense">
-        <br><br>
-
-        <label for="income">Remaining Balance:</label>
-        <input type="number" id="balance">
-        <br><br>
-        
-        <input type="button" name="answer" onclick="showDiv('addExbutton')" value="Add Expense"><br><br>
-
-        <div id="addExbutton" style="display:none; width: 300px; padding: 15px; border: 1px solid #000000;">
-            <form id="add-expense" action="/index.html" method="get">
-                <input type="text" placeholder="Expense Name" required id="ename" style="display: block; margin-bottom: 10px;">
-                <input type="number" placeholder="Amount" required id="eamount" style="display: block; margin-bottom: 10px;">
-                <select id="expense-category" required style="display: block; margin-bottom: 10px;">
+        <form method="POST" id="expense-form" action="{% url 'index' %}" >
+            {% csrf_token %}
+            
+            <label for="income">Total Income:</label>
+            <input type="number" name="income" id="income">
+            <br><br>
+            
+            <label for="expense">Total Expenses:</label>
+            <input type="number" name="expense" id="expense">
+            <br><br>
+            
+            <label for="balance">Remaining Balance:</label>
+            <input type="number" name="balance" id="balance">
+            <br><br>
+            
+            <!-- Additional fields for expense details -->
+            <div>
+                <input type="text" placeholder="Expense Name" required id="ename" name="expname" style="display: block; margin-bottom: 10px;">
+                <input type="number" placeholder="Amount" required id="eamount" name="expnamount" style="display: block; margin-bottom: 10px;">
+                <select id="expense-category" required name="expcategory" style="display: block; margin-bottom: 10px;">
                     <option value="" disabled selected>Select Category</option>
                     <option value="Food">Food</option>
                     <option value="Rent">Rent</option>
@@ -77,34 +90,31 @@ form button:hover {
                     <option value="Shopping">Shopping</option>
                     <option value="Other">Other</option>
                 </select>
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-        
-
-    </form>
+            </div>
+            
+            <!-- Submit button for the entire form -->
+            <button type="submit">Submit</button>
+        </form>
     </div>
-    
-    <div id="table">
-        Transaction table
-        <table border="1">
-           <thead>
+    <table>
+        <thead>
             <tr>
-                <th>Date</th>
                 <th>Expense Name</th>
-                <th>Category</th>
                 <th>Amount</th>
+                <th>Date</th>
+                <th>Category</th>
             </tr>
-        </thead> 
-        
-        </table>
-    </div>
-
-    <script>
-        function showDiv(addExbutton){
-        document.getElementById(addExbutton).style.display = 'block';
-        }
-    
-    </script>
+        </thead>
+        <tbody>
+            {% for expense in expenses %}
+                <tr>
+                    <td>{{ expense.expense_name }}</td>
+                    <td>{{ expense.amount }}</td>
+                    <td>{{ expense.created_at|date:"Y-m-d H:i" }}</td>
+                    <td>{{ expense.category }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>
