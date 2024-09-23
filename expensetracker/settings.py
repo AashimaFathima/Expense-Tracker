@@ -79,7 +79,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'expense',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'aashima786',
         'HOST':'localhost',
         'PORT':'3306',
     }
@@ -121,14 +121,23 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 import os
-STATIC_URL = '/static/'
+
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'  # URL prefix for serving static files
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Where collectstatic will store files
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "public/static"),
+    os.path.join(BASE_DIR, 'public/static'),  # Where your static files are located
 ]
+
+# Media files (user-uploaded content)
+MEDIA_URL = '/media/'  # URL prefix for serving media files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'public/media')  # Directory to store uploaded media files
 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

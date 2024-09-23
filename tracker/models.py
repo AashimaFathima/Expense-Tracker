@@ -2,8 +2,6 @@ from django.db import models
 
 # Create your models here.
 
-class RemainingBalance(models.Model):
-    remaining_balance=models.FloatField(default=0.0)
 
 class Expense(models.Model):
     category_choices=[
@@ -17,14 +15,14 @@ class Expense(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     expense_name = models.CharField(max_length=200)
     category = models.CharField(choices=category_choices, max_length=20)
-    amount = models.FloatField()
+    amount = models.IntegerField()
 
     def __str__(self):
         return f"{self.expense_name} - {self.amount}"
 
-class TrackingHistory(models.Model):
-    expense=models.ForeignKey(Expense, on_delete=models.CASCADE)
-    remaining_balance=models.ForeignKey(RemainingBalance, on_delete = models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
+class UserIncome(models.Model):
+    income = models.IntegerField(null=True, blank=True)
 
+    def __str__(self):
+        return f"Income: {self.income}"
 
