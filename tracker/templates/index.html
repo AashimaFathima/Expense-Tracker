@@ -24,8 +24,10 @@
         </div>
         <form method="POST" action="{% url 'index' %}">
             {% csrf_token %}
-            <input type="text" name="income" placeholder="Enter your income" required>
-            <button type="submit" name="set_income">Set Income</button>
+            <div class="set-income">
+                <input type="text" name="income" placeholder="Enter your income" required>
+                <button type="submit" name="set_income">Set Income</button>
+            </div>
         </form>
         <br><br>
     </section>
@@ -47,6 +49,7 @@
                 <option value="Groceries">Groceries</option>
                 <option value="Transport">Transport</option>
                 <option value="Shopping">Shopping</option>
+                <option value="Entertainment">Entertainment</option>
                 <option value="Other">Other</option>
                 </select>
             <button type="submit">Add Expense</button>
@@ -64,7 +67,9 @@
             {% csrf_token %}
             <button type="submit">Clear All</button>
         </form>
+        <br>
     </section>
+
 
     <section>
     <br><br>
@@ -99,6 +104,7 @@
             {% endfor %}
         </tbody>
     </table>
+    <br>
     </section>
 
     <section>

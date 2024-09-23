@@ -4,6 +4,9 @@
     box-sizing: border-box; 
 }
 
+h1{
+    margin-bottom:50px;
+}
 
 #form {
     border: 2px solid black;
@@ -118,13 +121,34 @@ table button:hover {
     display: block; 
 }
 
-@media (max-width: 768px) {
+
+
+@media (max-width: 701px) {
+
     #form {
-        width: 90%;
+        width: 80%;
         margin: 10px auto;
     }
-
+    
     .add_expense_align {
         flex-direction: column; 
+        gap: 0px;
+    }
+
+    form input, form select {
+        width: 100%; 
+        max-width: 250px; 
+        padding: 10px; 
+        box-sizing: border-box; 
+    }
+
+    .set-income{
+        display: flex;
+        flex-direction: column;
+        gap:10px;
+    }
+    button{
+        height: 40px;
+        width:115px;
     }
 }
