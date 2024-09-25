@@ -12,7 +12,7 @@
 <body>
     
 <header>
-    <h1 align="center">EXPENSE TRACKER</h1>
+    <h1>EXPENSE TRACKER</h1>
 </header>
 
 <main>
@@ -26,10 +26,9 @@
             {% csrf_token %}
             <div class="set-income">
                 <input type="text" name="income" placeholder="Enter your income" required>
-                <button type="submit" name="set_income">Set Income</button>
+                <button type="submit" name="set_income" class="green-button">Set Income</button>
             </div>
         </form>
-        <br><br>
     </section>
 
     <section>
@@ -52,27 +51,29 @@
                 <option value="Entertainment">Entertainment</option>
                 <option value="Other">Other</option>
                 </select>
-            <button type="submit">Add Expense</button>
+            <button type="submit" class="green-button">Add Expense</button>
         </div>
         </form> 
-        <br><br>
     </section>
 
     <section>
+ 
         <div class="align-icons">
             <h2>Delete All Expenses</h2>
             <img width="24" height="24" src="https://img.icons8.com/material-rounded/48/filled-trash.png" alt="filled-trash"/>
         </div>
+        <div class="clear-all">
         <form method="post" action="{% url 'delete_all_expenses' %}">
             {% csrf_token %}
-            <button type="submit">Clear All</button>
+            <button type="submit" class="red-button">Clear All</button>
         </form>
+        </div>
         <br>
     </section>
 
 
     <section>
-    <br><br>
+    <br>
     <table>
         <thead>
             <tr class="col-colors">
@@ -95,11 +96,9 @@
                     <td class="col">
                         <form method="POST" action="{% url 'delete_expense' expense.id %}">
                             {% csrf_token %}
-                            <button type="submit">Delete</button>
+                            <button type="submit" class="red-button">Delete</button>
                         </form>
                     </td>
-                    
-                    
                 </tr>
             {% endfor %}
         </tbody>

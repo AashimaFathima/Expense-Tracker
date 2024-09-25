@@ -1,154 +1,115 @@
-
-* {
-    background-color: rgb(219, 168, 168);
-    box-sizing: border-box; 
+/* General Styles */
+body {
+    font-family: Helvetica, sans-serif;
+    background-color: #f3cbb3;
+    margin: 0;
+    padding: 0;
 }
 
-h1{
-    margin-bottom:50px;
+h1, h2, h3 {
+    text-align: center;
 }
 
-#form {
+
+h1 {
+    color: rgb(77, 4, 92);
+    margin: 20px auto;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+main {
+    width: 80%;
+    margin: 20px auto;
+    background-color: rgb(193, 153, 239);
+    padding: 20px;
+    border-radius: 8px;
     border: 2px solid black;
-    color: black;
-    width: 80%; 
-    max-width: 600px; 
-    height: auto; 
+}
+
+/* Section Styles */
+.align-icons {
     display: flex;
-    flex-direction: column; 
     justify-content: center;
     align-items: center;
-    margin: 20px auto; 
+    gap: 5px;
+    margin-bottom: 5px;
 }
 
+section {
+    margin-bottom: 20px;
+}
 
-form input, form select, form button {
+.set-income, .add_expense_align {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Input Styles */
+input, select {
     padding: 10px;
-    border: 1px solid #000000;
-    border-radius: 4px;   
-    
+    font-size: 16px;
+    background-color: #f0eaea;
+    border-radius: 4px;
+    border:1px black solid;
+    width: 200px;
 }
 
 
 button {
-    background-color: green;
-    color: rgb(0, 0, 0);
-    height: 40px;
-    font-weight: 400;
-    font-size: medium;
-    font-family: Georgia, 'Times New Roman', Times, serif;    
-    padding: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: rgb(24, 74, 43);
+.green-button:hover{
+    background-color: darkgreen;
+}
+.red-button{
+    justify-content: center;
+    background-color: #ac3c3c;
+}
+.red-button:hover{
+    background-color: rgb(113, 28, 28);
+
 }
 
+.clear-all {
+    display: flex;
+    justify-content: center; /* Centers the button horizontally */
+    margin-bottom: 20px; /* Adds some space below the button */
+}
 
-
+/* Table Styles */
 table {
     width: 100%;
-    border-collapse: collapse;
-}
-
-table, th, td {
-    border: 2px solid black;
+    border-collapse: collapse; /* Ensures borders are merged into a single line */
+    border: 1px solid black; /* Black border around the table */
 }
 
 th, td {
-    padding: 8px;
-    text-align: left;
+    padding: 10px;
+    border: 1px solid black; /* Black border around each cell */
+    text-align: center;
 }
-
-th {
-    background-color: rgba(111, 14, 14, 0.895);
-    color: rgb(0, 0, 0); 
-    font-weight: bold;
+th{
+    background-color:#760798;
 }
-
-td {
-    background-color: rgb(191, 108, 108);
-}
-
-table button {
-    display: block;
-    color: black;
-    width: 100%; 
-    background-color:  rgb(191, 108, 108);
-    border-radius: 0;
-    padding: 10px 0;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-}
-
-table button:hover {
-    background-color: rgb(164, 69, 69);
-}
-
-#add-expense {
-    display: none;
-    margin: 10px;
-}
-
-.add_expense_align {
-    display: flex;
-    flex-wrap: wrap; 
-    gap: 5px; 
+tr
+{
+    background-color: #ecc7c4;
 }
 
 .final {
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap; 
-}
-
-.align-icons {
-    display: flex;
-    align-items: center; 
-    gap: 15px; 
-}
-
-.align-icons h2 {
-    margin: 0; 
-}
-
-.align-icons img {
-    display: block; 
-}
-
-
-
-@media (max-width: 701px) {
-
-    #form {
-        width: 80%;
-        margin: 10px auto;
-    }
+    flex-direction:row;
+    justify-content: center;
+    gap: 120px;
     
-    .add_expense_align {
-        flex-direction: column; 
-        gap: 0px;
-    }
-
-    form input, form select {
-        width: 100%; 
-        max-width: 250px; 
-        padding: 10px; 
-        box-sizing: border-box; 
-    }
-
-    .set-income{
-        display: flex;
-        flex-direction: column;
-        gap:10px;
-    }
-    button{
-        height: 40px;
-        width:115px;
-    }
 }
+
