@@ -1,115 +1,147 @@
-/* General Styles */
-body {
-    font-family: Helvetica, sans-serif;
-    background-color: #f3cbb3;
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-h1, h2, h3 {
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+header {
     text-align: center;
+    margin-bottom: 60px;
 }
-
 
 h1 {
-    color: rgb(77, 4, 92);
-    margin: 20px auto;
-    font-family: 'Times New Roman', Times, serif;
+    font-size: 40px;
+    color: #ecf0f1;
 }
 
-main {
-    width: 80%;
-    margin: 20px auto;
-    background-color: rgb(193, 153, 239);
-    padding: 20px;
-    border-radius: 8px;
-    border: 2px solid black;
-}
-
-/* Section Styles */
-.align-icons {
+#input-section {
     display: flex;
+    flex-direction: row;
     justify-content: center;
-    align-items: center;
-    gap: 5px;
-    margin-bottom: 5px;
+    gap: 50px;
 }
 
 section {
-    margin-bottom: 20px;
+    width: 300px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 6px;
+    backdrop-filter: blur(10px);
+    margin-bottom: 30px;
 }
 
-.set-income, .add_expense_align {
+.align-icons {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
 }
 
-/* Input Styles */
 input, select {
+    width: 100%;
     padding: 10px;
-    font-size: 16px;
-    background-color: #f0eaea;
+    margin-bottom: 15px;
+    border: 1px solid #7f8c8d;
+    background-color: #34495e;
     border-radius: 4px;
-    border:1px black solid;
-    width: 200px;
+    color: white;
+    font-size: 16px;
 }
-
 
 button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #4CAF50;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.green-button:hover{
-    background-color: darkgreen;
-}
-.red-button{
-    justify-content: center;
-    background-color: #ac3c3c;
-}
-.red-button:hover{
-    background-color: rgb(113, 28, 28);
-
-}
-
-.clear-all {
-    display: flex;
-    justify-content: center; /* Centers the button horizontally */
-    margin-bottom: 20px; /* Adds some space below the button */
-}
-
-/* Table Styles */
-table {
     width: 100%;
-    border-collapse: collapse; /* Ensures borders are merged into a single line */
-    border: 1px solid black; /* Black border around the table */
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.green-button {
+    background-color: #1abc9c;
+    color: white;
+}
+
+.green-button:hover {
+    background-color: #16a085;
+}
+
+.red-button {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.red-button:hover {
+    background-color: #c0392b;
+}
+
+#table-section{
+    width: 83vw;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 60px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right:auto;
+
+}
+table {
+    width: 80vw;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    overflow: hidden;
 }
 
 th, td {
-    padding: 10px;
-    border: 1px solid black; /* Black border around each cell */
+    padding: 12px;
+    border: 1px solid #aaadad;
     text-align: center;
 }
-th{
-    background-color:#760798;
+td{
+    background-color: #34495e ;
 }
-tr
-{
-    background-color: #ecc7c4;
+th {
+    background-color: #1abc9c;
 }
 
-.final {
-    display: flex;
-    flex-direction:row;
-    justify-content: center;
-    gap: 120px;
+.final{
+        width: 60vw;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 10px;
+        padding-left: 15px;
+        padding-right: 15px;
+        border-radius: 6px;
+        margin-top: 60px;
+        margin-left: auto;
+        margin-right:auto;
+        color: #ecf0f1;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
     
 }
 
+
+/* Container for the chart and results */
+.chart-container {
+    display: flex;
+    flex-direction: column; /* Change to 'row' if you want them side by side */
+    align-items: center;
+    margin-top: 20px; /* Space between input section and chart/results */
+}
+
+#expenseChart {
+    width: 400px;  /* Adjust width as needed */
+    height: 400px; /* Adjust height as needed */
+    max-height: 400px; /* Optional: Set max height */
+}

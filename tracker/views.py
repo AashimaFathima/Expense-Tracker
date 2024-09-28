@@ -1,37 +1,36 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Expense, UserIncome
+from .models import Expense, UserIncome, Budget
 from django.db.models import Sum
 from django.contrib import messages
+from decimal import Decimal
 
 def index(request):
     if request.method == "POST":
-        if 'set_income' in request.POST:
-            # Handle setting income
+        # Handle income setting
+        if 'set_budget' in request.POST:
+            income = request.POST.get('income')
+            limit = request.POST.get('budget_limit')
             try:
-                income = int(request.POST.get('income'))
-                user_income, created = UserIncome.objects.get_or_create(pk=1)
-                previous_income = user_income.income
+                income = Decimal(income)
+                limit = Decimal(limit)
+
+                # Set user income
+                user_income, created = UserIncome.objects.get_or_create(id=1)  # Assuming a single income entry
                 user_income.income = income
                 user_income.save()
-                
-                # Update previous stored income only if income has changed
-                if previous_income != income:
-                    request.session['previous_stored_income'] = previous_income
-                
-                # Reset message flag and session data
-                request.session['message_displayed'] = False
-                return redirect('/')  # Redirect after setting income
-            except ValueError:
-                return render(request, 'index.html', {'error': 'Invalid income value'})
 
+                # Set budget
+                Budget.objects.update_or_create(id=1, defaults={'limit': limit})
+                messages.success(request, f"Budget set to ₹{limit}")
+            except ValueError:
+                messages.error(request, 'Invalid income or budget value')
+            return redirect('/')
+        
         # Handle expense submission
         expense_name = request.POST.get('expname')
         amount = request.POST.get('expnamount')
         category = request.POST.get('expcategory')
 
-        # Handling new data submitted by the user
-        user_income = UserIncome.objects.first()
-        income = user_income.income if user_income else 0
 
         if expense_name and amount and category:
             try:
@@ -50,55 +49,79 @@ def index(request):
 
     # Fetch and display all expenses
     expenses = Expense.objects.all().order_by('-created_at')
+    budgets = Budget.objects.all()
+    
+    # Fetch user's income
     user_income = UserIncome.objects.first()
-    income = user_income.income if user_income else 0
+    income = user_income.income if user_income else Decimal(0)
 
     # Calculate total expenses
-    total_expenses = Expense.objects.aggregate(total=Sum('amount'))['total']
-    total_expenses = total_expenses if total_expenses is not None else 0
+    total_expenses = Expense.objects.aggregate(total=Sum('amount'))['total'] or Decimal(0)
 
     # Calculate remaining balance
     remaining_balance = income - total_expenses
 
-    # Get previous stored income from session
-    previous_stored_income = request.session.get('previous_stored_income', None)
+    budget_notifications = []
+    if budgets:
+        total_budget_limit = budgets[0].limit  # Assuming only one budget
+        # Check for the 'deleting' query parameter
+        if request.GET.get('deleting') != 'true':
+            if total_expenses > total_budget_limit:
+                messages.success(request, f"Budget exceeded! Limit: ₹{total_budget_limit}")
 
-    # Determine if income has changed
-    income_changed = previous_stored_income is not None and previous_stored_income != income
-
-
-    # Check if the remaining balance is less than 0
-    if remaining_balance < 0 and income_changed:
-        if not request.session.get('message_displayed', False):
-            messages.error(request, 'You have exceeded your income!')
-            request.session['message_displayed'] = True
-
-    if income==0:
-        messages.error(request,'Income cannot be zero')
+    categories, data = expense_list()  
 
 
-
-    return render(request, 'index.html', {  # Render the index.html template with context data
+    return render(request, 'index.html', {
         'expenses': expenses,
         'remaining_balance': remaining_balance,
         'total_expenses': total_expenses,
         'income': income,
+        'budgets': budgets,
+        'budget_notifications': budget_notifications,
+        'categories': categories,
+        'data': data,
     })
+
 
 def delete_expense(request, expense_id):
     if request.method == 'POST':
         expense = get_object_or_404(Expense, pk=expense_id)
         expense.delete()
-        return redirect('/')
+        messages.success(request, "Expense deleted successfully.")
+        # Redirect with a query parameter indicating a deletion
+        return redirect('/?deleting=true')
     return redirect('/')
+
 
 def delete_all_expenses(request):
     if request.method == "POST":
-        # Delete all Expense items
         Expense.objects.all().delete()
-        
-        # Redirect to the index page or another page after deletion
+        messages.success(request, "All expenses cleared.")
         return redirect('/')
-    
-    # If the method is not POST, return an error or redirect as needed
     return redirect('/')
+
+def expense_list():
+    expenses = Expense.objects.all()
+
+    # Example data aggregation (customize according to your needs)
+    categories = ['Food', 'Rent', 'Groceries', 'Transport','Shopping','Entertainment','Other']
+    data = [0, 0, 0, 0, 0, 0, 0]  # Initialize counts for each category
+
+    for expense in expenses:
+        if expense.category == 'Food':
+            data[0] += expense.amount
+        elif expense.category == 'Rent':
+            data[1] += expense.amount
+        elif expense.category == 'Groceries':
+            data[2] += expense.amount
+        elif expense.category == 'Transport':
+            data[3] += expense.amount
+        elif expense.category == 'Shopping':
+            data[4] += expense.amount
+        elif expense.category == 'Entertainment':
+            data[5] += expense.amount
+        elif expense.category == 'Other':
+            data[6] += expense.amount
+
+    return categories, data

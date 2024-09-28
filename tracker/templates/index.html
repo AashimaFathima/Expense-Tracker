@@ -7,7 +7,10 @@
     <meta name="viewport" content="width=, initial-scale=1.0">
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <title>Expense Tracker</title>
 </head>
 <body>
     
@@ -16,22 +19,23 @@
 </header>
 
 <main>
-
-    <section>
+    <div id="input-section">
+    <section id="set-budget-section">
         <div class="align-icons">    
-            <h2>Set Income</h2>
+            <h2>Set Budget</h2>
             <img width="35" height="35" src="https://img.icons8.com/ios-filled/50/income.png" alt="income"/>
         </div>
         <form method="POST" action="{% url 'index' %}">
             {% csrf_token %}
             <div class="set-income">
                 <input type="text" name="income" placeholder="Enter your income" required>
-                <button type="submit" name="set_income" class="green-button">Set Income</button>
+                <input type="number" name="budget_limit" placeholder="Limit" required>
+                <button type="submit" name="set_budget" class="green-button">Set Budget</button>
             </div>
         </form>
     </section>
 
-    <section>
+    <section id="add-expense-section">
         <div class="align-icons">    
             <h2>Add Expense</h2>
             <img width="35" height="35" src="https://img.icons8.com/ios-filled/50/expense.png" alt="expense"/>
@@ -56,7 +60,12 @@
         </form> 
     </section>
 
-    <section>
+
+    {% for notification in budget_notifications %}
+    <div class="alert">{{ notification }}</div>
+    {% endfor %}
+
+    <section id="delete-all-section">
  
         <div class="align-icons">
             <h2>Delete All Expenses</h2>
@@ -68,11 +77,12 @@
             <button type="submit" class="red-button">Clear All</button>
         </form>
         </div>
-        <br>
+
     </section>
 
+    </div>
 
-    <section>
+    <div id="table-section">
     <br>
     <table>
         <thead>
@@ -97,6 +107,7 @@
                         <form method="POST" action="{% url 'delete_expense' expense.id %}">
                             {% csrf_token %}
                             <button type="submit" class="red-button">Delete</button>
+                            
                         </form>
                     </td>
                 </tr>
@@ -104,15 +115,16 @@
         </tbody>
     </table>
     <br>
-    </section>
+    </div>
 
-    <section>
-        <div class="final">
-            <h3>Total Income: ₹{{ income }}</h3>
-            <h3>Total Expenses: ₹{{ total_expenses }}</h3>
-            <h3>Remaining Balance: ₹{{ remaining_balance }}</h3>
-        </div>
-    </section>
+    <canvas id="expenseChart" width="400" height="400"></canvas>
+
+
+    <div class="final">
+        <h3>Total Income: ₹{{ income }}</h3>
+        <h3>Total Expenses: ₹{{ total_expenses }}</h3>
+        <h3>Remaining Balance: ₹{{ remaining_balance }}</h3>
+    </div>
 
 </main>
 
@@ -124,7 +136,58 @@
 </script>
 {% endif %}
 
-    
+<canvas id="expenseChart"class="chart-container"></canvas>
+
+<script>
+    const ctx = document.getElementById('expenseChart').getContext('2d');
+    const data = {
+        labels: {{ categories|safe }},
+        datasets: [{
+            label: 'Expense Categories',
+            data: {{ data|safe }},
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)', // Color 5
+                'rgba(255, 159, 64, 0.2)', // Color 6
+                'rgba(255, 99, 0, 0.2)' // Color 7
+
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)', // Color 5
+                'rgba(255, 159, 64, 1)', // Color 6
+                'rgba(255, 99, 0, 1)'
+            ],
+            borderWidth: 1
+        }]
+    };
+
+    const config = {
+        type: 'pie',
+        data: data,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Expenses Overview'
+                }
+            }
+        },
+    };
+
+    const expenseChart = new Chart(ctx, config);
+</script>
 
 </body>
 </html>

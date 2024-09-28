@@ -10,6 +10,7 @@ class Expense(models.Model):
         ('Groceries', 'Groceries'),
         ('Transport', 'Transport'),
         ('Shopping', 'Shopping'),
+        ('Entertainment', 'Entertainment'),
         ('Other', 'Other'),
     ]
     created_at = models.DateTimeField(auto_now_add=True)
@@ -25,4 +26,11 @@ class UserIncome(models.Model):
 
     def __str__(self):
         return f"Income: {self.income}"
+
+class Budget(models.Model):
+    limit = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.category}: {self.limit}"
+
 
