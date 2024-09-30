@@ -4,8 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
-    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -23,6 +22,7 @@
     <section id="set-budget-section">
         <div class="align-icons">    
             <h2>Set Budget</h2>
+            <br><br>
             <img width="35" height="35" src="https://img.icons8.com/ios-filled/50/income.png" alt="income"/>
         </div>
         <form method="POST" action="{% url 'index' %}">
@@ -38,6 +38,7 @@
     <section id="add-expense-section">
         <div class="align-icons">    
             <h2>Add Expense</h2>
+            <br><br>
             <img width="35" height="35" src="https://img.icons8.com/ios-filled/50/expense.png" alt="expense"/>
         </div>
         <form method="POST" id="add_expense_form" action="{% url 'index' %}">
@@ -69,6 +70,7 @@
  
         <div class="align-icons">
             <h2>Delete All Expenses</h2>
+            <br><br>
             <img width="24" height="24" src="https://img.icons8.com/material-rounded/48/filled-trash.png" alt="filled-trash"/>
         </div>
         <div class="clear-all">
@@ -83,6 +85,7 @@
     </div>
 
     <div id="table-section">
+    <h2 align="center">Transactions</h2>
     <br>
     <table>
         <thead>
@@ -180,7 +183,12 @@
                 },
                 title: {
                     display: true,
-                    text: 'Expenses Overview'
+                    text: 'Expenses Overview',
+                    font: {
+                        size: 24
+                    },
+                    color: 'white'
+                    
                 }
             }
         },

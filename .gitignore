@@ -1,0 +1,22 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django stuff:
+*.log
+*.sql
+/media/
+/static/
+
+# Migrations
+*/migrations/
+
+# Virtual Environment
+myenv/
+
+# Editor settings
+.vscode/
+
+# Windows generated files
+Thumbs.db
