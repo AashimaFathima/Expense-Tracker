@@ -65,9 +65,9 @@ You can now access the application on [http://127.0.0.1:8000](http://127.0.0.1:8
 
 
 ## Technologies Used 💻
-Frontend: HTML, CSS, Bootstrap
-Backend: Django (Python)
-Database: MySQL
+- Frontend: HTML, CSS, Bootstrap
+- Backend: Django (Python)
+- Database: MySQL
 
 ## Acknowledgments
 Icons used from [FontAwesome](https://fontawesome.com) (Free Version)
