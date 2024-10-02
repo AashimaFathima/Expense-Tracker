@@ -1,4 +1,4 @@
-# 🧮 Expense Tracker 🧮
+# Expense Tracker 💰
 An easy-to-use expense tracker that helps you manage your budget by allowing you to set a budget, track expenses, and visualize your spending with a pie chart.
 
 This is my first Django project 🎉 and is designed to give users a smooth way to manage their daily finances.
