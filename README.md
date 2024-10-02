@@ -22,10 +22,10 @@ Shows confirmation when you delete an expense or all expenses ❌
 
 ## Installation 🛠️
 ### Prerequisites
-Python 3.x installed on your machine
-Django installed (run pip install django)
-SQLite3 for database management
-Git for cloning the repository
+- Python 3.x installed on your machine
+- Django installed (run pip install django)
+- SQLite3 for database management
+- Git for cloning the repository
 
 ## Step-by-Step Guide 📋
 **Clone the Repository:**
